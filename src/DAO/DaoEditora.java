@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Connection.ConnectionFactory;
 import java.sql.Connection;
 import Model.Editora;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  */
 public class DaoEditora {
     
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
+    private Connection connection = new ConnectionFactory().getConnection();
     
     public void adicionar(Editora editora){
         String sql = "INSERT INTO tbl_editora (nome_editora, cnpj, email) VALUES(?, ?, ?)" ;

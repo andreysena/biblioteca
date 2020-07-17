@@ -7,6 +7,7 @@ package DAO;
 
 
 import Model.Emprestimo;
+import Connection.ConnectionFactory;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -19,8 +20,7 @@ import java.sql.ResultSet;
  */
 public class DaoEmprestimo {
     
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
-    
+    private Connection connection = new ConnectionFactory().getConnection();    
     
     
     public void adicionar(Emprestimo emprestimo){

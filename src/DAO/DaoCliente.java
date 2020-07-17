@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Connection.ConnectionFactory;
 import java.sql.Connection;
 import Model.Cliente;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class DaoCliente {
     
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
+    private Connection connection = new ConnectionFactory().getConnection();
     
     public void adicionar(Cliente cliente){
         String sql = "INSERT INTO tbl_cliente (nome_cliente, cpf_cliente, nasc_cliente, email) VALUES(?, ?, ?, ?)" ;

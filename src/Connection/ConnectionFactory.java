@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ConnectionFactory;
+package Connection;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @author andrey
  */
-public class Connection {
+public class ConnectionFactory {
     
     public static java.sql.Connection getConnection(){
         final String myServer = "jdbc:mysql://localhost/biblioteca";

@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Connection.ConnectionFactory;
 import Model.Bibliotecario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class DaoBibliotecario {
 
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
+    private Connection connection = new ConnectionFactory().getConnection();
     
     public void adicionar(Bibliotecario bibliotecario){
         String sql = "INSERT INTO tbl_bibliotecario (nome_bibliotecario, nasc_bibliotecario, telefone, FK_Biblio_responsavel) VALUES(?, ?, ?, ?)" ;

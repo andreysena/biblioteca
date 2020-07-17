@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Connection.ConnectionFactory;
 import java.sql.Connection;
 import Model.Autor;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
  */
 public class DaoAutor {
     
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
+    private Connection connection = new ConnectionFactory().getConnection();
     
     public void adicionar(Autor autor){
         String sql = "insert into tbl_autor (nome_autor, nasc_autor, nacionalidade) values (?, ?, ?)";

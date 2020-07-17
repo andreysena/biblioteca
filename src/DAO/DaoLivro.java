@@ -6,6 +6,7 @@
 package DAO;
 
 import Model.Livro;
+import Connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
  */
 public class DaoLivro {
     
-    private Connection connection = new ConnectionFactory.Connection().getConnection();
+    private Connection connection = new ConnectionFactory().getConnection();
     
     public void adicionar(Livro livro){
     
