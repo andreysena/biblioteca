@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.ControllerLogin;
 import DAO.DaoLogin;
 import javax.swing.JOptionPane;
 
@@ -13,12 +14,19 @@ import javax.swing.JOptionPane;
  * @author andrey
  */
 public class Login extends javax.swing.JFrame {
-
+    
+    private final Controller.ControllerLogin validaLogin;
+    
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        validaLogin = new ControllerLogin(this);
+    }
+    
+    public void exibeErro(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -107,16 +115,18 @@ public class Login extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String senha = txtSenha.getText();
         
-        DAO.DaoLogin login = new DaoLogin();
-        boolean resposta = login.consultar(usuario, senha);
+        validaLogin.realizarLogin(usuario, senha);
         
-        if(resposta == true){
-            JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
-            new MainFrame().setVisible(true);
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Login Incorreto! \nPor favor verifique os dados informados.");
-        }
+//        DAO.DaoLogin login = new DaoLogin();
+//        boolean resposta = login.consultar(usuario, senha);
+//        
+//        if(resposta == true){
+//            JOptionPane.showMessageDialog(null, "Login efetuado com sucesso!");
+//            new MainFrame().setVisible(true);
+//            this.dispose();
+//        }else{
+//            JOptionPane.showMessageDialog(rootPane, "Login Incorreto! \nPor favor verifique os dados informados.");
+//        }
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
