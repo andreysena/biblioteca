@@ -5,6 +5,7 @@
  */
 package View.Cad;
 
+import Controller.Cadastro.ControllerCadLivro;
 import DAO.DaoCategoria;
 import DAO.DaoEditora;
 import DAO.DaoLivro;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class Cad_Livros extends javax.swing.JFrame {
 
+    private ControllerCadLivro validaCadLivro;
     /**
      * Creates new form Cad_Livros
      */
@@ -26,6 +28,7 @@ public class Cad_Livros extends javax.swing.JFrame {
         initComponents();
         carregaCategorias();
         carregaEditoras();
+        validaCadLivro = new ControllerCadLivro(this);
     }
 
     public void carregaCategorias(){
@@ -56,6 +59,10 @@ public class Cad_Livros extends javax.swing.JFrame {
         }catch(SQLException erro){
             throw new RuntimeException(erro);
         }
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     /**
@@ -198,22 +205,15 @@ public class Cad_Livros extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtNomeLivro.getText().isEmpty() || txtDataPublicacao.getText().isEmpty() || txtPaginas.getText().isEmpty()
-        || txtValorUnitario.getText().isEmpty() || comboCat.getSelectedIndex() < 1 || comboEditora.getSelectedIndex() < 1){
-            
-            JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem ser preenchidos!");
         
-        }else{
+        String nome = txtNomeLivro.getText();
+        String dt_pubicacao = txtDataPublicacao.getText();
+        String paginas = txtPaginas.getText();
+        String valor_unitario = txtValorUnitario.getText();
+        int FK_Categoria  = comboCat.getSelectedIndex();
+        int FK_Editora = comboEditora.getSelectedIndex();
         
-            Model.Livro livro = new Livro(txtNomeLivro.getText(), txtDataPublicacao.getText(), Integer.parseInt(txtPaginas.getText()),
-                                         Double.parseDouble(txtValorUnitario.getText()), comboCat.getSelectedIndex(),
-                                         comboEditora.getSelectedIndex());
-            
-            DAO.DaoLivro daoLivro = new DaoLivro();
-            daoLivro.adicionar(livro);
-            
-            JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
-        }
+        validaCadLivro.adicionar(nome, dt_pubicacao, paginas, valor_unitario, FK_Categoria, FK_Editora);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

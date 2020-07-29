@@ -21,6 +21,7 @@ public class ConnectionFactory {
         
         try{
             return DriverManager.getConnection(myServer, user, psw);
+            
         }catch(SQLException error){
             throw new RuntimeException(error);
         }

@@ -8,18 +8,25 @@ package View.Alt;
 import DAO.DaoCliente;
 import javax.swing.JOptionPane;
 import Model.Cliente;
-
+import Controller.Alteracao.ControllerAltCliente;
 /**
  *
  * @author andrey
  */
 public class Alt_Cliente extends javax.swing.JFrame {
 
+    private final ControllerAltCliente validaAltCliente;
+    
     /**
      * Creates new form Cad_Cliente
      */
     public Alt_Cliente() {
         initComponents();
+        validaAltCliente = new ControllerAltCliente(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     public void buscar(String cod, String nome, String cpf, String nasc, String email){
@@ -161,23 +168,13 @@ public class Alt_Cliente extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtCpf.getText().isEmpty() || txtNascimento.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            
-        }else{
-            
-            if(txtEmail.getText().isEmpty()){
-                txtEmail.setText("O clinte não possui email");
-            }
-            Model.Cliente cliente = new Cliente(txtNome.getText(), txtCpf.getText(), txtNascimento.getText(), txtEmail.getText());
-       
-            String id = txtCod.getText();
-            
-            DAO.DaoCliente daoCliente = new DaoCliente();                                                                                       
-            daoCliente.alterar(cliente, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
-        }
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String nascimento = txtNascimento.getText();
+        String email = txtEmail.getText();
+        String cod = txtCod.getText();
+        
+        validaAltCliente.alterar(nome, cpf, nascimento, email, cod);
         
     }//GEN-LAST:event_btnAlterarActionPerformed
 

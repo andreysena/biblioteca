@@ -5,6 +5,7 @@
  */
 package View.Cad;
 
+import Controller.Cadastro.ControllerCadEditora;
 import DAO.DaoEditora;
 import Model.Editora;
 import javax.swing.JOptionPane;
@@ -15,11 +16,18 @@ import javax.swing.JOptionPane;
  */
 public class Cad_Editora extends javax.swing.JFrame {
 
+    private final ControllerCadEditora validaCadEditora;
+    
     /**
      * Creates new form Cad_Editora
      */
     public Cad_Editora() {
         initComponents();
+        validaCadEditora = new ControllerCadEditora(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -54,12 +62,6 @@ public class Cad_Editora extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Email:");
-
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
 
         btnSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -129,27 +131,14 @@ public class Cad_Editora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtCNPJ.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem ser preenchidos");
-                    
-        }else{
+        String nome = txtNome.getText();
+        String cnpj = txtCNPJ.getText();
+        String email = txtEmail.getText();
         
-            if(txtEmail.getText().isEmpty()){
-                txtEmail.setText("Está Editora não possui um email.");
-            }
-            
-            Model.Editora editora = new Editora(txtNome.getText(), txtCNPJ.getText(), txtEmail.getText());
-            DAO.DaoEditora daoEditora = new DaoEditora();
-            daoEditora.adicionar(editora);
-            
-            JOptionPane.showMessageDialog(null, "Editora cadastrada com sucesso!");
-        }
+        validaCadEditora.verificar(nome, cnpj, email);
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -5,6 +5,8 @@
  */
 package View.Alt;
 
+import Controller.Alteracao.ControllerAltEditora;
+import Controller.Cadastro.ControllerCadEditora;
 import DAO.DaoEditora;
 import Model.Editora;
 import javax.swing.JOptionPane;
@@ -15,11 +17,14 @@ import javax.swing.JOptionPane;
  */
 public class Alt_Editora extends javax.swing.JFrame {
 
+    private final ControllerAltEditora validaAltEditora;
+    
     /**
      * Creates new form Cad_Editora
      */
     public Alt_Editora() {
         initComponents();
+        validaAltEditora = new ControllerAltEditora(this);
     }
     
     public void buscar(String cod, String nome, String cnpj, String email){
@@ -28,6 +33,10 @@ public class Alt_Editora extends javax.swing.JFrame {
         txtCNPJ.setText(cnpj);
         txtEmail.setText(email);
         
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -162,24 +171,14 @@ public class Alt_Editora extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtCNPJ.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem ser preenchidos");
-                    
-        }else{
+        String nome = txtNome.getText();
+        String cnpj = txtCNPJ.getText();
+        String email = txtEmail.getText();
+        String cod = txtCod.getText();
         
-            if(txtEmail.getText().isEmpty()){
-                txtEmail.setText("Está Editora não possui um email.");
-            }
-            
-            Model.Editora editora = new Editora(txtNome.getText(), txtCNPJ.getText(), txtEmail.getText());
-            
-            String id = txtCod.getText();
-            
-            DAO.DaoEditora daoEditora = new DaoEditora();
-            daoEditora.alterar(editora, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
-        }
+        validaAltEditora.alterar(nome, cnpj, email, cod);
+        
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -5,6 +5,7 @@
  */
 package View.Cad;
 
+import Controller.Cadastro.ControllerCadEmprestimo;
 import DAO.DaoBibliotecario;
 import DAO.DaoCliente;
 import DAO.DaoEmprestimo;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class Cad_Emprestimo extends javax.swing.JFrame {
 
+    private ControllerCadEmprestimo validaCadEmprestimo;
     /**
      * Creates new form Cad_Emprestimo
      */
@@ -27,6 +29,7 @@ public class Cad_Emprestimo extends javax.swing.JFrame {
         initComponents();
         carregaBiblio();
         carregaCliente();
+        validaCadEmprestimo = new ControllerCadEmprestimo(this);
     }
     
     public void carregaBiblio(){
@@ -57,6 +60,9 @@ public class Cad_Emprestimo extends javax.swing.JFrame {
         }
     }
     
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,21 +195,12 @@ public class Cad_Emprestimo extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtDevolucao.getText().isEmpty() || txtRetirada.getText().isEmpty() || comboBiblio.getSelectedIndex() < 1 || 
-           comboCliente.getSelectedIndex() < 1){
-            
-            JOptionPane.showMessageDialog(null, "Os campos obrigatótios devem ser preenchidos!");
-        }else{
+        String devolucao = txtDevolucao.getText(); 
+        String retirada = txtRetirada.getText();
+        int biblio = comboBiblio.getSelectedIndex();
+        int cliente = comboBiblio.getSelectedIndex();
         
-            Model.Emprestimo emprestimo = new Emprestimo(txtRetirada.getText(), txtDevolucao.getText(),
-                    comboBiblio.getSelectedIndex(), comboCliente.getSelectedIndex());
-            
-            DAO.DaoEmprestimo daoEmprestimo = new DaoEmprestimo();
-            daoEmprestimo.adicionar(emprestimo);
-            
-            JOptionPane.showMessageDialog(null, "Emprestimo cadastrado com sucesso");
-            
-        }
+        validaCadEmprestimo.verificar(retirada, devolucao, biblio, cliente);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

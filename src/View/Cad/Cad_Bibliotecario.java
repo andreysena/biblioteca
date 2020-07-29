@@ -10,12 +10,15 @@ import Model.Bibliotecario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import Controller.Cadastro.ControllerCadBibliotecario;
 
 /**
  *
  * @author andrey
  */
 public class Cad_Bibliotecario extends javax.swing.JFrame {
+    
+    private final ControllerCadBibliotecario validaCadBiblio;
 
     /**
      * Creates new form Cad_Bibliotecario
@@ -23,6 +26,12 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
     public Cad_Bibliotecario() {
         initComponents();
         carregaBiblio();
+        validaCadBiblio = new ControllerCadBibliotecario(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     public void carregaBiblio(){
@@ -32,7 +41,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
         
         try{
             while(rs.next()){
-                combaBiblioResp.addItem(rs.getString(2));
+                comboBiblioResp.addItem(rs.getString(2));
             }
             
         }catch(SQLException erro){
@@ -59,7 +68,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        combaBiblioResp = new javax.swing.JComboBox<>();
+        comboBiblioResp = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +103,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
             }
         });
 
-        combaBiblioResp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um(a) bibliotecário(a)" }));
+        comboBiblioResp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um(a) bibliotecário(a)" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,7 +129,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
                             .addComponent(txtNome)
                             .addComponent(txtNascimento)
                             .addComponent(txtTelefone)
-                            .addComponent(combaBiblioResp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(comboBiblioResp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(199, 199, 199))
         );
         layout.setVerticalGroup(
@@ -143,7 +152,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(combaBiblioResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBiblioResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,20 +165,14 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtNascimento.getText().isEmpty() || txtTelefone.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            
-            
-        }else{
-           
-            Model.Bibliotecario bibliotecario = new Bibliotecario(txtNome.getText(), txtNascimento.getText(), txtTelefone.getText(),
-                                                combaBiblioResp.getSelectedIndex());
-       
-            DAO.DaoBibliotecario daoBibliotecario = new DaoBibliotecario();
-            daoBibliotecario.adicionar(bibliotecario);
-            
-            JOptionPane.showMessageDialog(null, "Bibliotecário(a) cadastrado com sucesso!");
-        }
+        String nome = txtNome.getText();
+        String nascimento = txtNascimento.getText();
+        String telefone = txtTelefone.getText();
+        int bibilioReposavel = comboBiblioResp.getSelectedIndex();
+        
+        validaCadBiblio.verificar(nome, nascimento, telefone, bibilioReposavel);
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -215,7 +218,7 @@ public class Cad_Bibliotecario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> combaBiblioResp;
+    private javax.swing.JComboBox<String> comboBiblioResp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

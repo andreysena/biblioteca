@@ -5,8 +5,10 @@
  */
 package View.Alt;
 
+
 import DAO.DaoAutor;
 import Model.Autor;
+import Controller.Alteracao.ControllerAltAutor;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,12 +16,15 @@ import javax.swing.JOptionPane;
  * @author andrey
  */
 public class Alt_Autor extends javax.swing.JFrame {
+    
+    private final ControllerAltAutor validaAltAutor;
 
     /**
      * Creates new form Cad_Autor
      */
     public Alt_Autor() {
         initComponents();
+        validaAltAutor = new ControllerAltAutor(this);
     }
     
     public void buscar(String cod, String nome, String nasc, String nacionalidade){
@@ -27,6 +32,10 @@ public class Alt_Autor extends javax.swing.JFrame {
         txtNome.setText(nome);
         txtNascimento.setText(nasc);
         txtNacionalidade.setText(nacionalidade);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -157,21 +166,12 @@ public class Alt_Autor extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtNascimento.getText().isEmpty() || txtNacionalidade.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos para realizar o cadastro!");
-            
-        }else{
-            
-            Model.Autor autor = new Autor(txtNome.getText(), txtNascimento.getText(), txtNacionalidade.getText());
-            
-            String id = txtCod.getText();
-            
-            DAO.DaoAutor daoAutor = new DaoAutor();
-            daoAutor.alterar(autor, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
- 
-        }
+        String nome = txtNome.getText();
+        String nascimento = txtNascimento.getText();
+        String nacionalidade = txtNacionalidade.getText();
+        String cod = txtCod.getText();
+               
+        validaAltAutor.alterar(nome, nascimento, nacionalidade, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**

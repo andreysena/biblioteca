@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
         validaLogin = new ControllerLogin(this);
     }
     
-    public void exibeErro(String msg){
+    public void exibeMensagem(String msg){
         JOptionPane.showMessageDialog(rootPane, msg);
     }
 

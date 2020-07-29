@@ -30,8 +30,8 @@ public class DaoLivro {
             
             stmt.setString(1, livro.getNome());
             stmt.setString(2, livro.getDt_Publicacao());
-            stmt.setInt(3, livro.getPaginas());
-            stmt.setDouble(4, livro.getValorUnitario());
+            stmt.setInt(3, Integer.parseInt(livro.getPaginas()));
+            stmt.setDouble(4, Double.parseDouble(livro.getValorUnitario()));
             stmt.setInt(5, livro.getCategoria());
             stmt.setInt(6, livro.getEditora());
             
@@ -93,8 +93,8 @@ public class DaoLivro {
             
             stmt.setString(1, livro.getNome());
             stmt.setString(2, livro.getDt_Publicacao());
-            stmt.setInt(3, livro.getPaginas());
-            stmt.setDouble(4, livro.getValorUnitario());
+            stmt.setInt(3, Integer.parseInt(livro.getPaginas()));
+            stmt.setDouble(4, Double.parseDouble(livro.getValorUnitario()));
             stmt.setInt(5, livro.getCategoria());
             stmt.setInt(6, livro.getEditora());
             stmt.setInt(7, Integer.parseInt(id));

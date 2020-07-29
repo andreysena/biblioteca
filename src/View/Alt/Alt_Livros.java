@@ -5,6 +5,7 @@
  */
 package View.Alt;
 
+import Controller.Alteracao.ControllerAltLivro;
 import DAO.DaoCategoria;
 import DAO.DaoEditora;
 import DAO.DaoLivro;
@@ -19,6 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class Alt_Livros extends javax.swing.JFrame {
 
+    
+    private ControllerAltLivro validaAltLivro;
     /**
      * Creates new form Cad_Livros
      */
@@ -26,6 +29,7 @@ public class Alt_Livros extends javax.swing.JFrame {
         initComponents();
         carregaCategorias();
         carregaEditoras();
+        validaAltLivro = new ControllerAltLivro(this);
     }
 
     public void carregaCategorias(){
@@ -67,6 +71,10 @@ public class Alt_Livros extends javax.swing.JFrame {
         comboCat.setSelectedIndex(cat);
         comboEditora.setSelectedIndex(editora);
         
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     /**
@@ -226,24 +234,15 @@ public class Alt_Livros extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtNomeLivro.getText().isEmpty() || txtDataPublicacao.getText().isEmpty() || txtPaginas.getText().isEmpty()
-        || txtValorUnitario.getText().isEmpty() || comboCat.getSelectedIndex() < 1 || comboEditora.getSelectedIndex() < 1){
-            
-            JOptionPane.showMessageDialog(null, "Os campos obrigatórios devem ser preenchidos!");
+        String cod = txtCod.getText();
+        String nome = txtNomeLivro.getText();
+        String dt_pubicacao = txtDataPublicacao.getText();
+        String paginas = txtPaginas.getText();
+        String valor_unitario = txtValorUnitario.getText();
+        int FK_Categoria  = comboCat.getSelectedIndex();
+        int FK_Editora = comboEditora.getSelectedIndex();
         
-        }else{
-        
-            Model.Livro livro = new Livro(txtNomeLivro.getText(), txtDataPublicacao.getText(), Integer.parseInt(txtPaginas.getText()),
-                                         Double.parseDouble(txtValorUnitario.getText()), comboCat.getSelectedIndex(),
-                                         comboEditora.getSelectedIndex());
-            
-            String id = txtCod.getText();
-            
-            DAO.DaoLivro daoLivro = new DaoLivro();
-            daoLivro.alterar(livro, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
-        }
+        validaAltLivro.alterar(nome, dt_pubicacao, paginas, valor_unitario, FK_Categoria, FK_Editora, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

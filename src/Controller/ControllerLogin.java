@@ -26,17 +26,17 @@ public class ControllerLogin {
     public void realizarLogin(String usuario, String senha){
         
         if(usuario.equals("") || senha.equals("")){
-            tela.exibeErro("Preencha todos os campos!");
+            tela.exibeMensagem("Preencha todos os campos!");
         }else{
             DAO.DaoLogin login = new DaoLogin();
             boolean resposta = login.consultar(usuario, senha);
         
             if(resposta == true){
-                tela.exibeErro("Login efetuado com sucesso!");
+                tela.exibeMensagem("Login efetuado com sucesso!");
                 new MainFrame().setVisible(true);
                 tela.dispose();
             }else{
-                tela.exibeErro("Login Incorreto! \nPor favor verifique os dados informados.");
+                tela.exibeMensagem("Login Incorreto! \nPor favor verifique os dados informados.");
             }
 
         }

@@ -13,13 +13,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-
+import Controller.Alteracao.ControllerAltEmprestimo;
 /**
  *
  * @author andrey
  */
 public class Alt_Emprestimo extends javax.swing.JFrame {
 
+    private ControllerAltEmprestimo validaAltEmprestimo;
+    
     /**
      * Creates new form Cad_Emprestimo
      */
@@ -27,6 +29,7 @@ public class Alt_Emprestimo extends javax.swing.JFrame {
         initComponents();
         carregaBiblio();
         carregaCliente();
+        validaAltEmprestimo = new ControllerAltEmprestimo(this);
     }
     
     public void carregaBiblio(){
@@ -35,7 +38,7 @@ public class Alt_Emprestimo extends javax.swing.JFrame {
         
         try{
             while(rs.next()){
-                comboBiblio.addItem(rs.getNString(2));
+                comboBiblio.addItem(rs.getString(2));
             }
             
         }catch(SQLException erro){
@@ -49,7 +52,7 @@ public class Alt_Emprestimo extends javax.swing.JFrame {
         
         try{
             while(rs.next()){
-                comboCliente.addItem(rs.getNString(2));
+                comboCliente.addItem(rs.getString(2));
             }
             
         }catch(SQLException erro){
@@ -64,6 +67,10 @@ public class Alt_Emprestimo extends javax.swing.JFrame {
         comboBiblio.setSelectedIndex(biblio);
         comboCliente.setSelectedIndex(cliente);        
                 
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     
@@ -218,23 +225,14 @@ public class Alt_Emprestimo extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtDevolucao.getText().isEmpty() || txtRetirada.getText().isEmpty() || comboBiblio.getSelectedIndex() < 1 || 
-           comboCliente.getSelectedIndex() < 1){
-            
-            JOptionPane.showMessageDialog(null, "Os campos obrigatótios devem ser preenchidos!");
-        }else{
+        String id = txtCod.getText();
+        String devolucao = txtDevolucao.getText(); 
+        String retirada = txtRetirada.getText();
+        int biblio = comboBiblio.getSelectedIndex();
+        int cliente = comboBiblio.getSelectedIndex();
         
-            Model.Emprestimo emprestimo = new Emprestimo(txtRetirada.getText(), txtDevolucao.getText(),
-                    comboBiblio.getSelectedIndex(), comboCliente.getSelectedIndex());
-            
-            String id = txtCod.getText();
-            
-            DAO.DaoEmprestimo daoEmprestimo = new DaoEmprestimo();
-            daoEmprestimo.alterar(emprestimo, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
-            
-        }
+        validaAltEmprestimo.alterar(retirada, devolucao, biblio, cliente, id);
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

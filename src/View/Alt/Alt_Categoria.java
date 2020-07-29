@@ -8,18 +8,25 @@ package View.Alt;
 import DAO.DaoCategoria;
 import javax.swing.JOptionPane;
 import Model.Categoria;
-
+import Controller.Alteracao.ControllerAltCategoria;
 /**
  *
  * @author andrey
  */
 public class Alt_Categoria extends javax.swing.JFrame {
-
+    
+    private final ControllerAltCategoria validaAltCategoria;
+    
     /**
      * Creates new form Cad_Categoria
      */
     public Alt_Categoria() {
         initComponents();
+        validaAltCategoria = new ControllerAltCategoria(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
     
     public void buscar(String cod, String nome){
@@ -126,19 +133,10 @@ public class Alt_Categoria extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
-        if(txtNomeCategoria.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            
-        }else{
-            Model.Categoria categoria = new Categoria(txtNomeCategoria.getText());
-            
-            String id = txtCod.getText();
-            
-            DAO.DaoCategoria daoCategoria = new DaoCategoria();
-            daoCategoria.alterar(categoria, id);
-            
-            JOptionPane.showMessageDialog(null, "Alteração efetuada com sucesso!");
-        }
+        String nome = txtNomeCategoria.getText();
+        String cod = txtCod.getText();
+        
+        validaAltCategoria.alterar(nome, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

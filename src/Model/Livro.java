@@ -15,12 +15,12 @@ public class Livro {
     
     private String nome;
     private String dt_publicacao;
-    private int paginas;
-    private Double valor_unitario;
+    private String paginas;
+    private String valor_unitario;
     private int categoria;
     private int editora;
     
-    public Livro(String nome, String dt_publicacao, int paginas, Double valor_unitario, int categoria, int editora){
+    public Livro(String nome, String dt_publicacao, String paginas, String valor_unitario, int categoria, int editora){
         this.nome = nome;
         this.dt_publicacao = dt_publicacao;
         this.paginas = paginas;
@@ -37,11 +37,11 @@ public class Livro {
         this.dt_publicacao = dt_publicacao;
     }
 
-    public void setPaginas(int paginas) {
+    public void setPaginas(String paginas) {
         this.paginas = paginas;
     }
 
-    public void setValor_unitario(Double valor_unitario) {
+    public void setValor_unitario(String valor_unitario) {
         this.valor_unitario = valor_unitario;
     }
     
@@ -53,11 +53,11 @@ public class Livro {
         return this.dt_publicacao;
     }
     
-    public int getPaginas(){
+    public String getPaginas(){
         return this.paginas;
     }
     
-    public Double getValorUnitario(){
+    public String getValorUnitario(){
         return this.valor_unitario;
     }
     

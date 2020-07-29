@@ -8,18 +8,25 @@ package View.Cad;
 import DAO.DaoCliente;
 import javax.swing.JOptionPane;
 import Model.Cliente;
-
+import Controller.Cadastro.ControllerCadCliente;
 /**
  *
  * @author andrey
  */
 public class Cad_Cliente extends javax.swing.JFrame {
 
+    private final ControllerCadCliente validaCadCliente;
+    
     /**
      * Creates new form Cad_Cliente
      */
     public Cad_Cliente() {
         initComponents();
+        validaCadCliente = new ControllerCadCliente(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -141,21 +148,12 @@ public class Cad_Cliente extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtNome.getText().isEmpty() || txtCpf.getText().isEmpty() || txtNascimento.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            
-        }else{
-            
-            if(txtEmail.getText().isEmpty()){
-                txtEmail.setText("O clinte não possui email");
-            }
-            Model.Cliente cliente = new Cliente(txtNome.getText(), txtCpf.getText(), txtNascimento.getText(), txtEmail.getText());
-       
-            DAO.DaoCliente daoCliente = new DaoCliente();                                                                                       
-            daoCliente.adicionar(cliente);
-            
-            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
-        }
+        String nome = txtNome.getText();
+        String cpf = txtCpf.getText();
+        String nascimento = txtNascimento.getText();
+        String email = txtEmail.getText();
+        
+        validaCadCliente.verificar(nome, cpf, nascimento, email);
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 

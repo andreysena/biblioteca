@@ -8,6 +8,7 @@ package View.Cad;
 import DAO.DaoCategoria;
 import javax.swing.JOptionPane;
 import Model.Categoria;
+import Controller.Cadastro.ControllerCadCategoria;
 
 /**
  *
@@ -15,11 +16,18 @@ import Model.Categoria;
  */
 public class Cad_Categoria extends javax.swing.JFrame {
 
+    private final ControllerCadCategoria validaCadCategoria;
+    
     /**
      * Creates new form Cad_Categoria
      */
     public Cad_Categoria() {
         initComponents();
+        validaCadCategoria = new ControllerCadCategoria(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -103,17 +111,11 @@ public class Cad_Categoria extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        if(txtNomeCategoria.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            
-        }else{
-            Model.Categoria categoria = new Categoria(txtNomeCategoria.getText());
-            
-            DAO.DaoCategoria daoCategoria = new DaoCategoria();
-            daoCategoria.adicionar(categoria);
-            
-            JOptionPane.showMessageDialog(null, "Categoria cadastrada com sucesso!");
-        }
+        String nome = txtNomeCategoria.getText();
+        
+        validaCadCategoria.verificar(nome);
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

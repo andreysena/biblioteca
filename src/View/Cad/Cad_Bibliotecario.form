@@ -45,7 +45,7 @@
                           <Component id="txtNome" max="32767" attributes="0"/>
                           <Component id="txtNascimento" max="32767" attributes="0"/>
                           <Component id="txtTelefone" max="32767" attributes="0"/>
-                          <Component id="combaBiblioResp" max="32767" attributes="0"/>
+                          <Component id="comboBiblioResp" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -76,7 +76,7 @@
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <Component id="combaBiblioResp" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBiblioResp" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -157,7 +157,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="combaBiblioResp">
+    <Component class="javax.swing.JComboBox" name="comboBiblioResp">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="1">

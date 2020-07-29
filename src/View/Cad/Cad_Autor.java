@@ -7,6 +7,7 @@ package View.Cad;
 
 import DAO.DaoAutor;
 import Model.Autor;
+import Controller.Cadastro.ControllerCadAutor;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +16,18 @@ import javax.swing.JOptionPane;
  */
 public class Cad_Autor extends javax.swing.JFrame {
 
+    private final ControllerCadAutor validaCadAutor;
+    
     /**
      * Creates new form Cad_Autor
      */
     public Cad_Autor() {
         initComponents();
+        validaCadAutor = new ControllerCadAutor(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
     }
 
     /**
@@ -55,12 +63,6 @@ public class Cad_Autor extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Nacionalidade:");
-
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
 
         btnSalvar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -132,23 +134,14 @@ public class Cad_Autor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(txtNome.getText().isEmpty() || txtNascimento.getText().isEmpty() || txtNacionalidade.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos para realizar o cadastro!");
-            
-        }else{
-            
-            Model.Autor autor = new Autor(txtNome.getText(), txtNascimento.getText(), txtNacionalidade.getText());
-            
-            DAO.DaoAutor daoAutor = new DaoAutor();
-            daoAutor.adicionar(autor);
-            
-            JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
-        }
+        
+        String nome = txtNome.getText();
+        String nascimento = txtNascimento.getText();
+        String nacionalidade = txtNacionalidade.getText();
+        
+        validaCadAutor.verificar(nome, nascimento, nacionalidade);
+               
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

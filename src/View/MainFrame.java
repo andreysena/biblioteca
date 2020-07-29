@@ -190,7 +190,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/icons/estantelivros.png"))); // NOI18N
 
-        jMenu1.setText("Cadastro");
+        jMenu1.setText("Opções");
 
         JMenuCliente.setText("Clientes");
 
